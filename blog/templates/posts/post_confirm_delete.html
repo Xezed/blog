@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block head_title %}Confirm Delete{% endblock head_title %}
+{% block content %}
+    <div class="offset-sm-2">
+        <form action="" method="post">{% csrf_token %}
+            <h3>Вы действительно хотите удалить {{ post.title }}?</h3>
+            <input type="submit" value="Delete" class="btn btn-outline-danger">
+        </form>
+    </div>
+{% endblock content %}
