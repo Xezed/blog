@@ -2,10 +2,12 @@
 {% load crispy_forms_tags %}
 {% block head_title %}Contacts{% endblock head_title %}
 {% block content %}
-<div class="row-sm-6 offset-sm-3">
-    <form method="POST" action="">{% csrf_token %}
-        {{ form|crispy }}
-            <input type="submit" class="btn btn-outline-primary" value="Send">
-    </form>
-</div>
+    <div class="col-sm-6 offset-sm-3">
+        <form method="POST" action="">{% csrf_token %}
+            {{ form|crispy }}
+            <div class=" text-right">
+                <input type="submit" class="btn btn-outline-primary" value="Send">
+            </div>
+        </form>
+    </div>
 {% endblock content %}

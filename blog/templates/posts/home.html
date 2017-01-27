@@ -2,7 +2,7 @@
 {% block head_title %}Home{% endblock head_title %}
 {% block content %}
         {% for post in posts %}
-            <div class="row-sm-6 offset-sm-2">
+            <div class="col-sm-8 offset-sm-2">
                 <div class="card mb-3">
                     <img class="card-img-top img-fluid" src="{{ post.image.url }}" alt="{{ post.image.name }}">
                     <div class="card-block">

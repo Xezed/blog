@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.db.models.query_utils import Q
 from django.http.response import HttpResponseRedirect
@@ -8,6 +9,8 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 
+from comments.forms import CommentForm
+from comments.models import Comment
 from posts.forms import EmailForm
 from posts.models import Post
 
@@ -33,6 +36,28 @@ class PostView(DetailView):
     model = Post
     context_object_name = 'post'
 
+    def get_context_data(self, **kwargs):
+        context = super(PostView, self).get_context_data()
+        context['form'] = CommentForm()
+        return context
+
+    def post(self, request, **kwargs):
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            post = request.POST['post_id']
+            comment = request.POST.get('comment_id')
+            if comment:
+                comment = Comment.objects.get(id=comment)
+
+            print(comment)
+            instance = form.save(commit=False)
+            instance.parent_comment = comment
+            instance.user = request.user
+            instance.parent = Post.objects.get(id=post)
+            instance.save()
+            messages.success(request, 'Comment created')
+            return HttpResponseRedirect(instance.parent.get_absolute_url())
+
 
 class ContactView(TemplateView):
     template_name = 'posts/contact.html'
@@ -53,6 +78,7 @@ class ContactView(TemplateView):
             return redirect('posts:contact')
 
 
+@login_required
 class CreatePost(CreateView):
     model = Post
     template_name = 'posts/create.html'
