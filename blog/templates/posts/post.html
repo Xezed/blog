@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% load markdown_deux_tags %}
+{% load i18n %}
 
 {% block head_title %}{{ post.title }}{% endblock head_title %}
 
@@ -8,30 +9,30 @@
 
     <div class="col-sm-10 offset-sm-1">
         <!-- Post -->
-        <h1 class="markdown">{{ post.title|markdown }}{% if post.draft %}<span style="color: red;"> Draft</span>{% endif %}</h1>
+        <h1 class="markdown">{{ post.title|markdown }}{% if post.draft %}<span style="color: red;"> {% trans 'Draft' %}</span>{% endif %}</h1>
         <img class="img-fluid" src="{{ post.image.url }}" alt="{{ post.image.name }}">
         <p class="markdown">{{ post.content|markdown }}</p>
         <h3>{% if post.user.get_full_name %}{{ post.user.get_full_name }}{% else %}
             {{ post.user }}{% endif %}</h3>
-        <p><small>Published: {{ post.publish_date }}</small></p>
-        <p><small>Last update: {{ post.change_date }}</small></p>
+        <p><small>{% trans 'Published:' %} {{ post.publish_date }}</small></p>
+        <p><small>{% trans 'Last update:' %} {{ post.change_date }}</small></p>
 
         {% if user == post.user or user.is_staff or user.is_superuser %}
-        <a class="btn btn-outline-primary" role="button" href="{% url 'posts:update' pk=post.id %}">Update</a>
-        <a class="btn btn-outline-warning" role="button" href="{% url 'posts:delete' pk=post.id %}">Delete</a>
+        <a class="btn btn-outline-primary" role="button" href="{% url 'posts:update' pk=post.id %}">{% trans 'Update' %}</a>
+        <a class="btn btn-outline-warning" role="button" href="{% url 'posts:delete' pk=post.id %}">{% trans 'Delete' %}</a>
         {% endif %}
         <!-- Comments -->
-        <h2>Comments:</h2>
+        <h2>{% trans 'Comments:' %}</h2>
         {% if user.is_authenticated %}
 
         <form method="post" action=".">{% csrf_token %}
             {{ form|crispy }}
             <input type="hidden" name="post_id" value="{{ post.id }}">
-            <input type="submit" class="btn btn-primary" role="button" value="Reply">
+            <input type="submit" class="btn btn-primary" role="button" value="{% trans 'Reply' %}">
         </form>
 
         {% else %}
-            <h3>You must login to leave a comment.</h3>
+            <h3>{% trans 'You must login to leave a comment.' %}</h3>
         {% endif %}
 
         {% for comment in post.comment_set.parents %}
@@ -41,10 +42,10 @@
                     <cite title="Source Title">{{ comment.pub_date }}</cite>
                     {% if comment.has_children %}
                         {% with comments=comment.children.count %}
-                            | {{ comments }} comment{{ comments|pluralize }}
+                            | {{ comments }} {% trans 'comment' %}{{ comments|pluralize }}
                         {% endwith %}
                     {% endif %}
-                    | <a class='comment-reply-btn' href='#'>Reply</a>
+                    | <a class='comment-reply-btn' href='#'>{% trans 'Reply' %}</a>
                 </footer>
 
                 <!-- Child comments -->
@@ -67,10 +68,10 @@
                         {{ form|crispy }}
                         <input type="hidden" name="post_id" value="{{ post.id }}">
                         <input type="hidden" name="comment_id" value="{{ comment.id }}">
-                        <input type="submit" class="btn btn-primary" role="button" value="Reply">
+                        <input type="submit" class="btn btn-primary" role="button" value="{% trans 'Reply' %}">
                     </form>
                     {% else %}
-                        <h4>You must login to leave a comment.</h4>
+                        <h4>{% trans 'You must login to leave a comment.' %}</h4>
                     {% endif %}
                 </div>
 

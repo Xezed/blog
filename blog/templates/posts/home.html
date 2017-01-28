@@ -1,16 +1,23 @@
 {% extends 'base.html' %}
 {% load markdown_deux_tags %}
-{% block head_title %}Home{% endblock head_title %}
+{% load i18n %}
+{% block head_title %}{% trans 'Home' %}{% endblock head_title %}
 {% block content %}
         {% for post in posts %}
             <div class="col-sm-8 offset-sm-2">
                 <div class="card mb-3">
                     <img class="card-img-top img-fluid" src="{{ post.image.url }}" alt="{{ post.image.name }}">
                     <div class="card-block">
-                        <h4 class="card-title">{{ post.title|markdown }}</h4>
+                        <h4 class="card-title">{{ post.title }}</h4><br>
                         <p class="card-text">{{ post.content|markdown|truncatechars_html:'120' }}</p>
-                        <p class="card-text"><small class="text-muted">{{ post.publish_date|timesince }} ago</small></p>
-                        <a class="btn btn-primary" href="{{ post.get_absolute_url }}" role="button">Primary</a>
+                        <p class="card-text"><small class="text-muted">{{ post.publish_date|timesince }} {% trans 'ago' %}</small></p>
+                        <a class="btn btn-primary" href="{{ post.get_absolute_url }}" role="button">
+                            {% blocktrans count counter=post.comment_set.count %}
+                            1 Comment
+                            {% plural %}
+                            {{ counter }} Comments
+                            {% endblocktrans %}
+                        </a>
                     </div>
                 </div>
             </div>

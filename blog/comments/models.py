@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 
 from posts.models import Post
 
@@ -10,12 +11,12 @@ class CommentManager(models.Manager):
 
 
 class Comment(models.Model):
-    user = models.ForeignKey(User)
-    content = models.TextField()
-    pub_date = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User, verbose_name=_('author'))
+    content = models.TextField(_('content'))
+    pub_date = models.DateTimeField(_('publish date'), auto_now_add=True)
     change_date = models.DateTimeField(auto_now=True)
-    parent = models.ForeignKey(Post)
-    parent_comment = models.ForeignKey('self', null=True, blank=True)
+    parent = models.ForeignKey(Post, verbose_name=_('post'))
+    parent_comment = models.ForeignKey('self', null=True, blank=True, verbose_name=_('parent comment'))
 
     objects = CommentManager()
 

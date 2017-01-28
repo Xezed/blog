@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
-{% block head_title %}Update {{ post.title }}{% endblock head_title %}
+{% load i18n %}
+{% block head_title %}{% trans 'Update' %} {{ post.title }}{% endblock head_title %}
 {% block extra_head %}{{ form.media }}{% endblock extra_head %}
 {% block content %}
     <div class="col-sm-6 offset-sm-3">
         <form action="." method="POST" enctype="multipart/form-data">{% csrf_token %}
             {{ form|crispy }}
             <div class="text-right">
-                <input type="submit" value="Update" class="btn btn-outline-primary">
+                <input type="submit" value="{% trans 'Update' %}" class="btn btn-outline-primary">
             </div>
         </form>
     </div>

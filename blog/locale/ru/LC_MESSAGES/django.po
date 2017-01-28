@@ -1,0 +1,419 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-01-28 14:44-0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: comments/models.py:14 posts/models.py:18
+msgid "author"
+msgstr ""
+
+#: comments/models.py:15 posts/models.py:16
+msgid "content"
+msgstr "содержание"
+
+#: comments/models.py:16 posts/models.py:19
+msgid "publish date"
+msgstr "дата публикации"
+
+#: comments/models.py:18
+msgid "post"
+msgstr ""
+
+#: comments/models.py:19
+msgid "parent comment"
+msgstr ""
+
+
+#: posts/forms.py:11
+#, fuzzy
+#| msgid "email"
+msgid "Email"
+msgstr "Электронная почта"
+
+
+
+#: posts/models.py:17
+msgid "is draft?"
+msgstr "Это черновик?"
+
+#: posts/models.py:21
+msgid "image"
+msgstr "Изображение"
+
+#: posts/views.py:65
+msgid "Comment created"
+msgstr "Комментарий создан"
+
+#: posts/views.py:80
+msgid "Your message successfully sent."
+msgstr "Ваше сообщение успешно отправлено"
+
+#: posts/views.py:125
+msgid "Successfully deleted"
+msgstr "Успешно удален"
+
+#: templates/account/email.html:5
+msgid "Account"
+msgstr "Аккаунт"
+
+#: templates/account/email.html:9
+msgid "E-mail Addresses"
+msgstr "Адреса электронной почты"
+
+#: templates/account/email.html:11
+msgid "The following e-mail addresses are associated with your account:"
+msgstr "Следующие адреса электронной почты связаны с вашим аккаунтом"
+
+#: templates/account/email.html:25
+msgid "Verified"
+msgstr "Подтверждён"
+
+#: templates/account/email.html:27
+msgid "Unverified"
+msgstr "Не подтверждён"
+
+#: templates/account/email.html:29
+msgid "Primary"
+msgstr "Основной"
+
+#: templates/account/email.html:35
+msgid "Make Primary"
+msgstr "Сделать основным"
+
+#: templates/account/email.html:36
+msgid "Re-send Verification"
+msgstr "Отправить письмо с кодом подтверждения повторно"
+
+#: templates/account/email.html:37
+msgid "Remove"
+msgstr "Удалить"
+
+#: templates/account/email.html:44
+msgid "Warning:"
+msgstr "Внимание:"
+
+#: templates/account/email.html:44
+msgid ""
+"You currently do not have any e-mail address set up. You should really add "
+"an e-mail address so you can receive notifications, reset your password, etc."
+msgstr ""
+"У Вас нет привязанного e-mail адреса. Вы должны добавить его,"
+"чтобы получать уведомления, сбрасывать пароль и т.д."
+#: templates/account/email.html:49
+msgid "Add E-mail Address"
+msgstr "Добавить адрес электронной почты"
+
+#: templates/account/email.html:54
+msgid "Add E-mail"
+msgstr "Добавить E-mail"
+
+#: templates/account/email.html:63
+msgid "Do you really want to remove the selected e-mail address?"
+msgstr "Вы действительно хотите удалить выбранный e-mail адрес?"
+
+#: templates/account/email_confirm.html:6
+#: templates/account/email_confirm.html:11
+msgid "Confirm E-mail Address"
+msgstr "Подтверждение E-mail адреса"
+
+#: templates/account/email_confirm.html:17
+#, python-format
+msgid ""
+"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
+"address for user %(user_display)s."
+msgstr ""
+"Пожалуйста, подтвердите этот <a href=\"mailto:%(email)s\">%(email)s</a> e-mail, "
+"принадлежащий %(user_display)s."
+
+#: templates/account/email_confirm.html:21
+msgid "Confirm"
+msgstr "Подтверждение"
+
+#: templates/account/email_confirm.html:28
+#, python-format
+msgid ""
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+msgstr ""
+"Эта ссылка для подтверждения не активна. Пожалуйста, <a href="
+"\"%(email_url)s\">создайте новый запрос для подтверждения</a>."
+#: templates/account/login.html:6 templates/account/login.html:10
+#: templates/account/login.html:44 templates/base.html:34
+msgid "Sign In"
+msgstr "Логин"
+
+#: templates/account/login.html:15
+#, python-format
+msgid ""
+"Please sign in with one\n"
+"                of your existing third party accounts. Or, <a href="
+"\"%(signup_url)s\">sign up</a>\n"
+"                for a %(site_name)s account and sign in below:"
+msgstr ""
+"Пожалуйста,\n"
+"                войдите через одну из социальных сетей. Или, <a href="
+"\"%(signup_url)s\">зарегистрируйтесь</a>\n"
+"                на %(site_name)s и авторизуйтесь:"
+#: templates/account/login.html:25
+msgid "or"
+msgstr "или"
+
+#: templates/account/login.html:32
+#, python-format
+msgid ""
+"If you have not created an account yet, then please\n"
+"                <a href=\"%(signup_url)s\">sign up</a> first."
+msgstr ""
+"Если у вас ещё нет аккаунта, пожалуйста\n"
+"                <a href=\"%(signup_url)s\">зарегистрируйтесь</a>."
+#: templates/account/login.html:43
+msgid "Forgot Password?"
+msgstr "Забыли пароль?"
+
+#: templates/account/logout.html:5 templates/account/logout.html:9
+#: templates/account/logout.html:18 templates/base.html:32
+msgid "Sign Out"
+msgstr "Выйти"
+
+#: templates/account/logout.html:11
+msgid "Are you sure you want to sign out?"
+msgstr "Вы уверенны, что хотите выйти?"
+
+#: templates/account/password_change.html:5
+#: templates/account/password_change.html:8
+#: templates/account/password_change.html:13
+#: templates/account/password_reset_from_key.html:4
+#: templates/account/password_reset_from_key.html:7
+#: templates/account/password_reset_from_key_done.html:4
+#: templates/account/password_reset_from_key_done.html:7
+msgid "Change Password"
+msgstr "Сменить пароль"
+
+#: templates/account/password_reset.html:6
+#: templates/account/password_reset.html:10
+#: templates/account/password_reset_done.html:6
+#: templates/account/password_reset_done.html:9
+msgid "Password Reset"
+msgstr "Сбросить пароль"
+
+#: templates/account/password_reset.html:15
+msgid ""
+"Forgotten your password? Enter your e-mail address below, and we'll send you "
+"an e-mail allowing you to reset it."
+msgstr ""
+"Забыли пароль? Введите e-mail, на который будет отправлено сообщение, "
+"позволяющее его сбросить."
+#: templates/account/password_reset.html:20
+msgid "Reset My Password"
+msgstr "Сбросить мой пароль"
+
+#: templates/account/password_reset.html:23
+msgid "Please contact us if you have any trouble resetting your password."
+msgstr "Пожалуйста, свяжитесь с нами, если у вас возникли сложности со сбросом пароля"
+
+#: templates/account/password_reset_done.html:15
+msgid ""
+"We have sent you an e-mail. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr ""
+"Мы отправили вам e-mail. Пожалуйста, свяжитесь с нами, если вы не получили его "
+"в течении нескольких минут."
+#: templates/account/password_reset_from_key.html:7
+msgid "Bad Token"
+msgstr ""
+
+#: templates/account/password_reset_from_key.html:11
+#, python-format
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
+"a>."
+msgstr ""
+"Ссылка для сброса пароля неактина, возможно из-за того, что уже была "
+"использована. Пожалуйста, запросите <a href=\"%(passwd_reset_url)s\">новый сброс пароля</"
+"a>."
+#: templates/account/password_reset_from_key.html:17
+msgid "change password"
+msgstr "смена пароля"
+
+#: templates/account/password_reset_from_key.html:20
+#: templates/account/password_reset_from_key_done.html:8
+msgid "Your password is now changed."
+msgstr "Ваш пароль изменён"
+
+#: templates/account/password_set.html:5 templates/account/password_set.html:8
+#: templates/account/password_set.html:13
+msgid "Set Password"
+msgstr "Задать пароль"
+
+#: templates/account/signup.html:5
+msgid "Signup"
+msgstr "Регистрация"
+
+#: templates/account/signup.html:9 templates/account/signup.html:20
+#: templates/base.html:35
+msgid "Sign Up"
+msgstr "Регистрация"
+
+#: templates/account/signup.html:11
+#, python-format
+msgid ""
+"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
+msgstr ""
+"Уже есть аккаунт, тогда, пожалуйста, <a href=\"%(login_url)s\">войдите</a>."
+#: templates/account/signup_closed.html:5
+#: templates/account/signup_closed.html:8
+msgid "Sign Up Closed"
+msgstr "Регистрация закрыта"
+
+#: templates/account/signup_closed.html:10
+msgid "We are sorry, but the sign up is currently closed."
+msgstr "Просим прощения, но регистрация временно закрыта"
+
+#: templates/account/verification_sent.html:5
+#: templates/account/verification_sent.html:9
+#: templates/account/verified_email_required.html:5
+#: templates/account/verified_email_required.html:8
+msgid "Verify Your E-mail Address"
+msgstr "Подтвердите Ваш E-mail"
+
+#: templates/account/verification_sent.html:11
+msgid ""
+"We have sent an e-mail to you for verification. Follow the link provided to "
+"finalize the signup process. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr ""
+"Мы отправили вам e-mail, для подтверждения. Проследуйте по ссылке, "
+"чтобы завершить регистрацию. Пожалуйста, свяжитесь с нами, если Вы не получили его "
+"в течении нескольких минут."
+
+#: templates/account/verified_email_required.html:16
+msgid ""
+"We have sent an e-mail to you for\n"
+"verification. Please click on the link inside this e-mail. Please\n"
+"contact us if you do not receive it within a few minutes."
+msgstr ""
+"Мы отправили вам e-mail, для подтверждения. Проследуйте по ссылке, "
+"чтобы завершить регистрацию. Пожалуйста, свяжитесь с нами, если Вы не получили его "
+"в течении нескольких минут."
+#: templates/account/verified_email_required.html:20
+#, python-format
+msgid ""
+"<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
+"mail address</a>."
+msgstr ""
+"<strong>Внимание:</strong> вы можете <a href=\"%(email_url)s\">сменить e-"
+"mail адрес</a>."
+#: templates/base.html:8 templates/base.html:19
+msgid "Blog"
+msgstr "Блог"
+
+#: templates/base.html:25 templates/posts/home.html:4
+msgid "Home"
+msgstr "Главная"
+
+#: templates/base.html:28 templates/posts/contact.html:4
+msgid "Contacts"
+msgstr "Контакты"
+
+#: templates/base.html:31
+msgid "Change E-mail"
+msgstr "Смена E-mail"
+
+#: templates/base.html:40 templates/base.html:41
+msgid "Search"
+msgstr "Поиск"
+
+#: templates/posts/contact.html:10
+msgid "Send"
+msgstr "Отправить"
+
+#: templates/posts/create.html:5
+msgid "Create post"
+msgstr "Создать запись"
+
+#: templates/posts/create.html:12
+msgid "Create"
+msgstr "Создать"
+
+#: templates/posts/home.html:13
+msgid "ago"
+msgstr "назад"
+
+#: templates/posts/home.html:16
+msgid "Comment"
+msgstr "Комментарий"
+
+#: templates/posts/post.html:12
+msgid "Draft"
+msgstr "Черновик"
+
+#: templates/posts/post.html:17
+#, fuzzy
+#| msgid "publish date"
+msgid "Published:"
+msgstr "Опукликовано:"
+
+#: templates/posts/post.html:18
+msgid "Last update:"
+msgstr "Последнее обновление:"
+
+#: templates/posts/post.html:21 templates/posts/post_update.html:4
+#: templates/posts/post_update.html:11
+msgid "Update"
+msgstr "Редактировать"
+
+#: templates/posts/post.html:22 templates/posts/post_confirm_delete.html:9
+msgid "Delete"
+msgstr "Удалить"
+
+#: templates/posts/post.html:25
+msgid "Comments:"
+msgstr "Комментарии:"
+
+#: templates/posts/post.html:31 templates/posts/post.html:48
+#: templates/posts/post.html:71
+msgid "Reply"
+msgstr "Ответить"
+
+#: templates/posts/post.html:35 templates/posts/post.html:74
+msgid "You must login to leave a comment."
+msgstr "Вы должны зарегистрироваться, чтобы оставить комментарий."
+
+#: templates/posts/post.html:45
+msgid "comment"
+msgstr "комментарий"
+
+#: templates/posts/post_confirm_delete.html:3
+msgid "Confirm Delete"
+msgstr "Подтвердите удаление"
+
+#: templates/posts/post_confirm_delete.html:7
+msgid "Вы действительно хотите удалить"
+msgstr ""
+
+msgid "Title"
+msgstr "Заголовок"
+
+msgid "Message"
+msgstr "Сообщение"
+
+msgid "Content"
+msgstr "Контент"
+
+msgid "Publish date"
+msgstr "Дата публикации"
