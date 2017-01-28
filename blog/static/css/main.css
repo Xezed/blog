@@ -1,3 +1,7 @@
 .comment-reply {
     display: none;
 }
+
+.wmd-panel {
+    margin-left: 0;
+}

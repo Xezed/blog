@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load markdown_deux_tags %}
 
 {% block head_title %}{{ post.title }}{% endblock head_title %}
 
@@ -7,14 +8,18 @@
 
     <div class="col-sm-10 offset-sm-1">
         <!-- Post -->
-        <h1>{{ post.title }}{% if post.draft %}<span style="color: red;"> Draft</span>{% endif %}</h1>
+        <h1 class="markdown">{{ post.title|markdown }}{% if post.draft %}<span style="color: red;"> Draft</span>{% endif %}</h1>
         <img class="img-fluid" src="{{ post.image.url }}" alt="{{ post.image.name }}">
-        <p>{{ post.content }}</p>
+        <p class="markdown">{{ post.content|markdown }}</p>
         <h3>{% if post.user.get_full_name %}{{ post.user.get_full_name }}{% else %}
             {{ post.user }}{% endif %}</h3>
         <p><small>Published: {{ post.publish_date }}</small></p>
         <p><small>Last update: {{ post.change_date }}</small></p>
 
+        {% if user == post.user or user.is_staff or user.is_superuser %}
+        <a class="btn btn-outline-primary" role="button" href="{% url 'posts:update' pk=post.id %}">Update</a>
+        <a class="btn btn-outline-warning" role="button" href="{% url 'posts:delete' pk=post.id %}">Delete</a>
+        {% endif %}
         <!-- Comments -->
         <h2>Comments:</h2>
         {% if user.is_authenticated %}
@@ -64,6 +69,8 @@
                         <input type="hidden" name="comment_id" value="{{ comment.id }}">
                         <input type="submit" class="btn btn-primary" role="button" value="Reply">
                     </form>
+                    {% else %}
+                        <h4>You must login to leave a comment.</h4>
                     {% endif %}
                 </div>
 

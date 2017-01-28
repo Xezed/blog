@@ -36,6 +36,8 @@ INSTALLED_APPS += [
     'allauth.socialaccount',
     'crispy_forms',
     'django_activeurl',
+    'markdown_deux',
+    'pagedown',
 ]
 
 # My apps
