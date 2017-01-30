@@ -1,5 +1,7 @@
 from django.conf.urls import url
+from rest_framework.routers import DefaultRouter
 
+from posts.api.views import PostViewSet
 from posts.views import HomePage, PostView, ContactView, CreatePost, UpdatePost, DeletePost
 
 urlpatterns = [
@@ -10,3 +12,8 @@ urlpatterns = [
     url(r'post/update/(?P<pk>\d+)/$', UpdatePost.as_view(), name='update'),
     url(r'post/delete/(?P<pk>\d+)/$', DeletePost.as_view(), name='delete'),
 ]
+
+
+router = DefaultRouter()
+router.register(r'api/posts', PostViewSet, base_name='api')
+urlpatterns += router.urls

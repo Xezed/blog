@@ -38,6 +38,7 @@ INSTALLED_APPS += [
     'django_activeurl',
     'markdown_deux',
     'pagedown',
+    'rest_framework',
 ]
 
 # My apps
@@ -152,3 +153,9 @@ ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 LOGIN_REDIRECT_URL = "/"
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 3,
+}

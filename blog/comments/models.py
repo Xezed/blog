@@ -15,7 +15,7 @@ class Comment(models.Model):
     content = models.TextField(_('content'))
     pub_date = models.DateTimeField(_('publish date'), auto_now_add=True)
     change_date = models.DateTimeField(auto_now=True)
-    parent = models.ForeignKey(Post, verbose_name=_('post'))
+    parent = models.ForeignKey(Post, verbose_name=_('post'), related_name='comments')
     parent_comment = models.ForeignKey('self', null=True, blank=True, verbose_name=_('parent comment'))
 
     objects = CommentManager()

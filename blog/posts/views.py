@@ -24,10 +24,7 @@ class HomePage(ListView):
     ordering = '-publish_date'
 
     def get_queryset(self):
-        if self.request.user.is_staff:
-            qs = self.model.objects.all()
-        else:
-            qs = self.model.objects.published()
+        qs = self.model.objects.published(self.request.user)
         q = self.request.GET.get('q')
         if q:
             qs = qs.filter(Q(title__icontains=q) |
@@ -43,8 +40,10 @@ class PostView(FormMixin, DetailView):
     context_object_name = 'post'
 
     def get(self, request, *args, **kwargs):
-        if self.model.objects.filter(id=kwargs['pk'], draft=True) and not self.request.user.is_staff:
-            return HttpResponseForbidden()
+        user = self.request.user if self.request.user.is_authenticated else None
+        if self.model.objects.filter(~Q(user=user),
+                                     id=kwargs['pk'], draft=True) and not self.request.user.is_staff:
+            return HttpResponseForbidden('Forbidden')
         else:
             return super(PostView, self).get(request, *args, **kwargs)
 

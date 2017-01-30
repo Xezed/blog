@@ -1,13 +1,20 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models.query_utils import Q
 from django.urls.base import reverse
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 
 class PostManager(models.Manager):
-    def published(self):
-        qs = super(PostManager, self).filter(draft=False, publish_date__lte=timezone.now())
+    def published(self, user):
+        user = user if user.is_authenticated else None
+        if user and user.is_staff:
+            qs = super(PostManager, self).all()
+        else:
+            qs = super(PostManager, self).filter((Q(draft=False) | Q(user=user)) &
+                                                 Q(publish_date__lte=timezone.now())
+                                                 ).distinct()
         return qs
 
 

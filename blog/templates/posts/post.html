@@ -35,7 +35,7 @@
             <h3>{% trans 'You must login to leave a comment.' %}</h3>
         {% endif %}
 
-        {% for comment in post.comment_set.parents %}
+        {% for comment in post.comments.parents %}
             <blockquote class="blockquote">
                 <p class="mb-0">{{ comment.content }}</p>
                 <footer class="blockquote-footer">{{ comment.user }}

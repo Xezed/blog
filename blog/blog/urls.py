@@ -12,3 +12,4 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
     url(r'^', include(urls, namespace='posts')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
