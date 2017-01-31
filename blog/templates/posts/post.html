@@ -40,10 +40,20 @@
                 <p class="mb-0">{{ comment.content }}</p>
                 <footer class="blockquote-footer">{{ comment.user }}
                     <cite title="Source Title">{{ comment.pub_date }}</cite>
+                    {% if user == comment.user or user.is_staff or user.is_superuser %}
+                        <a href="{% url 'comments:delete' comment.id %}">
+                            Delete
+                        </a>
+                        <a href="{% url 'comments:update' comment.id %}">
+                            Update
+                        </a>
+                    {% endif %}
                     {% if comment.has_children %}
-                        {% with comments=comment.children.count %}
-                            | {{ comments }} {% trans 'comment' %}{{ comments|pluralize }}
-                        {% endwith %}
+                        {% blocktrans count counter=comment.children.count %}
+                            | 1 Comment
+                            {% plural %}
+                            {{ counter }} Comments
+                        {% endblocktrans %}
                     {% endif %}
                     | <a class='comment-reply-btn' href='#'>{% trans 'Reply' %}</a>
                 </footer>
@@ -57,6 +67,14 @@
                                 <footer class="blockquote-footer">{{ child.user }}
                                     <cite title="Source Title">{{ child.pub_date }}</cite>
                                 </footer>
+                                {% if user == comment.user or user.is_staff or user.is_superuser %}
+                                    <a href="{% url 'comments:delete' child.id %}">
+                                        <p class="h6">Delete</p>
+                                    </a>
+                                    <a href="{% url 'comments:update' child.id %}">
+                                        <p class="h6">Update</p>
+                                    </a>
+                                {% endif %}
                             </blockquote>
                         {% endfor %}
 

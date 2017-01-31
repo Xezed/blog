@@ -14,6 +14,7 @@ from django.views.generic.list import ListView
 from comments.forms import CommentForm
 from comments.models import Comment
 from posts.forms import EmailForm, PostForm
+from posts.mixins import MyPermissionMixin
 from posts.models import Post
 
 
@@ -96,35 +97,17 @@ class CreatePost(LoginRequiredMixin, CreateView):
         return render(request, "posts/create.html", context)
 
 
-class UpdatePost(UpdateView):
+class UpdatePost(MyPermissionMixin, UpdateView):
     model = Post
     template_name = 'posts/post_update.html'
     form_class = PostForm
 
-    def dispatch(self, request, *args, **kwargs):
-        if request.user == self.get_object().user or \
-           request.user.is_staff or request.user.is_superuser:
-            return super(UpdatePost, self).dispatch(request, *args, **kwargs)
-        else:
-            return HttpResponseForbidden()
 
-
-class DeletePost(DeleteView):
+class DeletePost(MyPermissionMixin, DeleteView):
     model = Post
+    success_message = _('Post successfully deleted')
     success_url = '/'
 
-    def get(self, request, *args, **kwargs):
-        if request.user == self.get_object().user:
-            return super(DeletePost, self).get(request, *args, **kwargs)
-        else:
-            return HttpResponseForbidden()
-
-    def post(self, request, *args, **kwargs):
-        if request.user == self.get_object().user:
-            messages.success(request, _('Successfully deleted'))
-            return super(DeletePost, self).post(request, **kwargs)
-        else:
-            return HttpResponseForbidden()
-
-
-
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(DeletePost, self).delete(request, *args, **kwargs)

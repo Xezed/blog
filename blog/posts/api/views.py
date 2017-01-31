@@ -16,7 +16,7 @@ class PostPageNumberPagination(PageNumberPagination):
 class PostViewSet(viewsets.ModelViewSet):
     serializer_class = PostSerializer
     filter_backends = [SearchFilter, OrderingFilter]
-    ordering_fields = ['title', 'content']
+    ordering_fields = ['title', 'publish_date']
     pagination_class = PostPageNumberPagination
     search_fields = ['title', 'content']
     permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]

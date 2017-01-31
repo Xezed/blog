@@ -4,10 +4,23 @@ from comments.models import Comment
 from posts.models import Post
 
 
-class CommentSerializer(serializers.ModelSerializer):
+class ChildCommentSerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source='user.username')
+
     class Meta:
         model = Comment
-        fields = ('user', 'content', 'pub_date')
+        fields = ('user', 'content', 'pub_date',)
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    replies = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Comment
+        fields = ('user', 'content', 'pub_date', 'replies')
+
+    def get_replies(self, obj):
+        return ChildCommentSerializer(obj.children(), many=True).data
 
 
 class PostSerializer(serializers.HyperlinkedModelSerializer):
@@ -22,7 +35,7 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
         }
 
     def paginated_comments(self, obj):
-        comments = Comment.objects.filter(parent=obj)
+        comments = Comment.objects.filter(parent=obj, parent_comment=None)
         paginator = pagination.PageNumberPagination()
         page = paginator.paginate_queryset(comments, self.context['request'])
         serializer = CommentSerializer(page, many=True, context={'request': self.context['request']})

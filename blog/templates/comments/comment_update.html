@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% block head_title %}{% trans 'Update Comment' %}{% endblock head_title %}
+{% block content %}
+<div class="col-sm-6 offset-sm3">
+    <form method="post" action=".">{% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" class="btn btn-primary" role="button" value="{% trans 'Update' %}">
+    </form>
+</div>
+{% endblock content %}

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% block head_title %}{% trans 'Comment' %}{% endblock head_title %}
+{% block content %}
+<div class="col-sm-6 offset-sm-3">
+    <h2>{% trans 'Comments:' %}</h2>
+            <blockquote class="blockquote">
+                <p class="mb-0">{{ comment.content }}</p>
+                <footer class="blockquote-footer">{{ comment.user }}
+                    <cite title="Source Title">{{ comment.pub_date }}</cite>
+                    {% if comment.has_children %}
+                        {% blocktrans count counter=comment.children.count %}
+                            | 1 Comment
+                            {% plural %}
+                            {{ counter }} Comments
+                        {% endblocktrans %}
+                    {% endif %}
+                    {% if user == comment.user or user.is_staff or user.is_superuser %}
+                        <a href="{% url 'comments:delete' comment.id %}">
+                            | Delete
+                        </a>
+                        <a href="{% url 'comments:update' comment.id %}">
+                            | Update
+                        </a>
+                    {% endif %}
+                    | <a class='comment-reply-btn' href='#'>{% trans 'Reply' %}</a>
+                </footer>
+
+                    <!-- Reply to comment -->
+                    {% if user.is_authenticated %}
+                    <form method="post" action=".">{% csrf_token %}
+                        {{ form|crispy }}
+                        <input type="hidden" name="post_id" value="{{ post.id }}">
+                        <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                        <input type="submit" class="btn btn-primary" role="button" value="{% trans 'Reply' %}">
+                    </form>
+                    {% else %}
+                        <h4>{% trans 'You must login to leave a comment.' %}</h4>
+                    {% endif %}
+
+                <!-- Child comments -->
+                    {% if comment.has_children %}
+                        {% for child in comment.children %}
+                            <blockquote class="blockquote blockquote-reverse">
+                                <p class="mb-0">{{ child.content }}</p>
+                                <footer class="blockquote-footer">{{ child.user }}
+                                    <cite title="Source Title">{{ child.pub_date }}</cite>
+                                    {% if user == comment.user or user.is_staff or user.is_superuser %}
+                                        <a href="{% url 'comments:delete' comment.id %}">
+                                            | Delete
+                                        </a>
+                                        <a href="{% url 'comments:update' comment.id %}">
+                                             | Update
+                                        </a>
+                                    {% endif %}
+                                </footer>
+                            </blockquote>
+                        {% endfor %}
+
+                    {% endif %}
+
+            </blockquote>
+</div>
+{% endblock content %}
