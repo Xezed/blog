@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'^accounts/profile/$', ProfileView.as_view(), name='profile'),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^comments/', include('comments.urls', namespace='comments')),
+    url(r'^api/comments/', include('comments.api.urls', namespace='comments-api')),
     url(r'^', include(urls, namespace='posts')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

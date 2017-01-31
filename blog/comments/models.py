@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.urls.base import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from posts.models import Post
@@ -32,3 +33,6 @@ class Comment(models.Model):
 
     def children(self):
         return Comment.objects.filter(parent_comment=self)
+
+    def get_absolute_url(self):
+        return reverse('comments:comment', kwargs={'pk': self.pk})
