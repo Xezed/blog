@@ -6,7 +6,9 @@
         {% for post in posts %}
             <div class="col-sm-8 offset-sm-2">
                 <div class="card mb-3">
+                {% if post.image %}
                     <img class="card-img-top img-fluid" src="{{ post.image.url }}" alt="{{ post.image.name }}">
+                {% endif %}
                     <div class="card-block">
                         <h4 class="card-title">{{ post.title }}
                         {% if post.draft %} <span style="color:red">Draft</span>{% endif %}</h4><br>

@@ -2,7 +2,6 @@ import pytest
 from datetime import timedelta
 
 from django.contrib.auth.models import AnonymousUser
-from django.test.client import RequestFactory
 from django.utils import timezone
 from mixer.backend.django import mixer
 

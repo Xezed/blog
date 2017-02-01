@@ -5,6 +5,7 @@ from django.core.mail import send_mail
 from django.db.models.query_utils import Q
 from django.http.response import HttpResponseRedirect, HttpResponseForbidden
 from django.shortcuts import render, redirect
+from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic.detail import DetailView
@@ -43,8 +44,9 @@ class PostView(FormMixin, DetailView):
 
     def get(self, request, *args, **kwargs):
         user = self.request.user if self.request.user.is_authenticated else None
-        if self.model.objects.filter(~Q(user=user),
-                                     id=kwargs['pk'], draft=True) and not self.request.user.is_staff:
+        if self.model.objects.filter(~Q(user=user) & Q(draft=True) |
+                                     ~Q(user=user) & Q(publish_date__gt=timezone.now()),
+                                     id=kwargs['pk']).exists() and not self.request.user.is_staff:
             return HttpResponseForbidden('Forbidden')
         else:
             return super(PostView, self).get(request, *args, **kwargs)

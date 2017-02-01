@@ -10,7 +10,9 @@
     <div class="col-sm-10 offset-sm-1">
         <!-- Post -->
         <h1 class="markdown">{{ post.title|markdown }}{% if post.draft %}<span style="color: red;"> {% trans 'Draft' %}</span>{% endif %}</h1>
+        {% if post.image %}
         <img class="img-fluid" src="{{ post.image.url }}" alt="{{ post.image.name }}">
+        {% endif %}
         <p class="markdown">{{ post.content|markdown }}</p>
         <h3>{% if post.user.get_full_name %}{{ post.user.get_full_name }}{% else %}
             {{ post.user }}{% endif %}</h3>
