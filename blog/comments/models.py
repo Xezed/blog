@@ -28,6 +28,8 @@ class Comment(models.Model):
     def has_children(self):
         if self.parent_comment:
             return False
+        elif self.comment_set.exists() is False:
+            return False
         else:
             return True
 
