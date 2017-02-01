@@ -25,7 +25,7 @@ class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_('author'))
     publish_date = models.DateTimeField(_('publish date'), null=True, blank=True)
     change_date = models.DateTimeField(auto_now=True)
-    image = models.ImageField(_('image'), width_field='width_field', height_field='height_field')
+    image = models.ImageField(_('image'), width_field='width_field', height_field='height_field', null=True, blank=True)
     width_field = models.IntegerField(default=0)
     height_field = models.IntegerField(default=0)
 

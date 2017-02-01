@@ -11,6 +11,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView, FormMixin
 from django.views.generic.list import ListView
 
+
 from comments.forms import CommentForm
 from comments.models import Comment
 from posts.forms import EmailForm, PostForm
@@ -54,13 +55,16 @@ class PostView(FormMixin, DetailView):
         if form.is_valid():
             post = request.POST.get('post_id')
             comment = request.POST.get('comment_id')
-            if comment:
-                comment = Comment.objects.get(id=comment)
-
             instance = form.save(commit=False)
+            comment = Comment.objects.get(id=comment)
+            post = Post.objects.get(id=post)
+            if comment:
+                if post.id != comment.parent.id:
+                    messages.warning(request, _('Post id of comment and reply comment must match!'))
+                    return HttpResponseRedirect(post.get_absolute_url())
             instance.parent_comment = comment
             instance.user = request.user
-            instance.parent = Post.objects.get(id=post)
+            instance.parent = post
             instance.save()
             messages.success(request, _('Comment created'))
             return HttpResponseRedirect(instance.parent.get_absolute_url())

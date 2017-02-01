@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
     url(r'^comments/', include('comments.urls', namespace='comments')),
     url(r'^api/comments/', include('comments.api.urls', namespace='comments-api')),
+    url(r'^api/auth/', include('rest_auth.urls')),
     url(r'^', include(urls, namespace='posts')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
