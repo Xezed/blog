@@ -58,9 +58,9 @@ class PostView(FormMixin, DetailView):
             post = request.POST.get('post_id')
             comment = request.POST.get('comment_id')
             instance = form.save(commit=False)
-            comment = Comment.objects.get(id=comment)
             post = Post.objects.get(id=post)
             if comment:
+                comment = Comment.objects.get(id=comment)
                 if post.id != comment.parent.id:
                     messages.warning(request, _('Post id of comment and reply comment must match!'))
                     return HttpResponseRedirect(post.get_absolute_url())
