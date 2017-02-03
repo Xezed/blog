@@ -46,8 +46,9 @@ INSTALLED_APPS += [
 # My apps
 
 INSTALLED_APPS += [
-    'posts',
+    'blog',
     'comments',
+    'posts',
 ]
 
 MIDDLEWARE = [

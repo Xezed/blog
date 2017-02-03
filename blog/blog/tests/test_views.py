@@ -2,15 +2,38 @@ from datetime import timedelta
 
 import pytest
 from django.core import mail
-from django.test.client import Client, RequestFactory
+from django.test.client import Client
 from django.utils import timezone
 from mixer.backend.django import mixer
 
 from comments.models import Comment
 from posts.models import Post
-from posts.views import CreatePost
 
 pytestmark = pytest.mark.django_db
+
+
+@pytest.fixture()
+def form_data():
+    data = {'title': 'some title', 'content': 'asd7',
+            'publish_date_year': 2017, 'publish_date_month': 2, 'publish_date_day': 1}
+    return data
+
+
+@pytest.fixture()
+def post_data():
+    publisher = mixer.blend('auth.User', username='boss', is_staff=False)
+    obj3 = mixer.blend('posts.Post', pk=1, publish_date=timezone.now(), user=publisher)
+    obj2 = mixer.blend('posts.Post', pk=2, publish_date=timezone.now() + timedelta(days=30), user=publisher)
+    obj1 = mixer.blend('posts.Post', pk=3, draft=True, user=publisher)
+    return obj3, obj2, obj1, publisher
+
+
+@pytest.fixture()
+def comment_data():
+    data = {'content': 'Some content', 'post_id': 1}
+    child_data = {'content': 'cont', 'post_id': 1, 'comment_id': 2}
+    child_data2 = {'content': 'conten', 'post_id': 1, 'comment_id': 3}
+    return data, child_data, child_data2
 
 
 class TestHomePageView:
@@ -30,27 +53,14 @@ class TestHomePageView:
         assert obj3, obj1 not in req.context['posts']
         assert obj3, obj1 not in req.context['posts']
 
+    def test_authenticated(self, client, post_data):
+        obj4 = mixer.blend('posts.Post', title='abc', publish_date=timezone.now()+timedelta(days=30))
+        obj5 = mixer.blend('posts.Post', title='abb', publish_date=timezone.now(), draft=True)
+        client.force_login(post_data[3])
+        req = client.get('/')
+        assert req.context['posts'].count() == 3
+        assert Post.objects.count() == 5
 
-@pytest.fixture()
-def form_data():
-    data = {'title': 'some title', 'content': 'asd7',
-            'publish_date_year': 2017, 'publish_date_month': 2, 'publish_date_day': 1}
-    return data
-
-@pytest.fixture()
-def post_data():
-    publisher = mixer.blend('auth.User', username='boss', is_staff=False)
-    obj3 = mixer.blend('posts.Post', pk=1, publish_date=timezone.now(), user=publisher)
-    obj2 = mixer.blend('posts.Post', pk=2, publish_date=timezone.now() + timedelta(days=30), user=publisher)
-    obj1 = mixer.blend('posts.Post', pk=3, draft=True, user=publisher)
-    return obj3, obj2, obj1, publisher
-
-@pytest.fixture()
-def comment_data():
-    data = {'content': 'Some content', 'post_id': 1}
-    child_data = {'content': 'cont', 'post_id': 1, 'comment_id': 2}
-    child_data2 = {'content': 'conten', 'post_id': 1, 'comment_id': 3}
-    return data, child_data, child_data2
 
 
 class TestPostView:

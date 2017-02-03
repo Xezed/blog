@@ -1,4 +1,5 @@
 from django.db.models.query_utils import Q
+from django.utils import timezone
 from rest_framework import viewsets
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.pagination import PageNumberPagination
@@ -29,12 +30,10 @@ class PostViewSet(viewsets.ModelViewSet):
                 user = self.request.user
             else:
                 user = None
-            return Post.objects.filter(Q(draft=False) |
-                                       Q(user=user)
+            return Post.objects.filter((Q(draft=False) | Q(user=user)) &
+                                       (Q(publish_date__lte=timezone.now()) |
+                                       Q(user=user))
                                        ).distinct()
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
-
-    def perform_update(self, serializer):
         serializer.save(user=self.request.user)

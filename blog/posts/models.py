@@ -13,7 +13,8 @@ class PostManager(models.Manager):
             qs = super(PostManager, self).all()
         else:
             qs = super(PostManager, self).filter((Q(draft=False) | Q(user=user)) &
-                                                 Q(publish_date__lte=timezone.now())
+                                                 Q(publish_date__lte=timezone.now()) |
+                                                 Q(user=user)
                                                  ).distinct()
         return qs
 
@@ -26,8 +27,8 @@ class Post(models.Model):
     publish_date = models.DateTimeField(_('publish date'), null=True, blank=True)
     change_date = models.DateTimeField(auto_now=True)
     image = models.ImageField(_('image'), width_field='width_field', height_field='height_field', null=True, blank=True)
-    width_field = models.IntegerField(default=0)
-    height_field = models.IntegerField(default=0)
+    width_field = models.IntegerField(default=0, null=True)
+    height_field = models.IntegerField(default=0, null=True)
 
     objects = PostManager()
 

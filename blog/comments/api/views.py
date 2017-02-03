@@ -17,7 +17,7 @@ class CommentCreate(CreateAPIView):
         if comment:
             parent_comment = Comment.objects.get(id=comment)
             if int(request.POST.get('parent')) != parent_comment.parent.id:
-                return Response('Post id of comment and reply comment must match!')
+                return Response('Post id of comment and reply comment must match!', status=400)
         return super(CommentCreate, self).post(request, *args, **kwargs)
 
     def perform_create(self, serializer):
