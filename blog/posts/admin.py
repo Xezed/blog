@@ -16,3 +16,4 @@ class AdminPost(admin.ModelAdmin):
 
 
 admin.site.register(Post, AdminPost)
+admin.site.site_header = 'Blog'
